@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const app = express()
 const https =require('https')
 const { response } = require('express')
+
+
 app.use(express.static('public'))//here it is used for all the static files in the project.(images,css files)
 app.use(bodyParser.urlencoded({extended:true}))
 
@@ -52,7 +54,7 @@ else{
 })
     })
 
-    // request.write(jsonData)
+    request.write(jsonData)
     request.end()
 
 })
