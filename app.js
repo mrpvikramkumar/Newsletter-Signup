@@ -52,12 +52,7 @@ else{
 })
     })
 
-    if(request.write(jsonData)){
-        res.sendFile(__dirname + "/success.html") 
-    }
-    else{
-        res.sendFile(__dirname + "/failure.html"); 
-    }
+    // request.write(jsonData)
     request.end()
 
 })
