@@ -32,23 +32,18 @@ body {
 .form-signin .form-control:focus {
   z-index: 2;
 }
-.top{
-    margin-top: 0px;
+.top {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .middle{
-    margin-top: 15px;
+  border-radius: 0;
+  margin-bottom: -1px;
 }
-
-.bottom{
-    margin-top: 15px; 
-}
-button{
-    margin-top: 15px; 
-}
-img{
-    border-radius: 50%;
-}
-p{
-    font-family: cursive
+.bottom {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
