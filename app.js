@@ -15,7 +15,6 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/',(req,res)=>{
-
     const firstName = req.body.fName;
     const lastName = req.body.lName;
     const email= req.body.email;
@@ -31,10 +30,11 @@ app.post('/',(req,res)=>{
                     LNAME:lastName
                 }
             }
-         ]
+         ],
     }
-    const jsonData = JSON.stringify(data)
-
+    var jsonData = JSON.stringify(data)
+    console.log(firstName, lastName, email);
+    var jsonData = JSON.stringify(data)
     const url = 'https://us17.api.mailchimp.com/3.0/lists/7fb4dd04f9'
     
     const options ={
@@ -42,17 +42,16 @@ app.post('/',(req,res)=>{
         auth:"vikram:d001c67986f6f6b7cf761ae42c57c6f6-us17"
     }
    const request= https.request(url,options,(response)=>{
-
-if(response.statusCode===200){
-    res.sendFile(__dirname + "/success.html");
-}  
-else{
-    res.sendFile(__dirname + "/failure.html");
-}
-    response.on('data',(data)=>{
-    console.log(JSON.parse(data));
-})
-    })
+     if(response.statusCode===200){
+        res.sendFile(__dirname + "/success.html");
+         }  
+        else{
+      res.sendFile(__dirname + "/failure.html");
+          }
+            response.on('data',(data)=>{
+            console.log(JSON.parse(data));
+          })
+     })
 
     request.write(jsonData)
     request.end()
@@ -62,7 +61,7 @@ else{
 app.post('/failure',(req,res)=>{
     res.redirect('/')
 })
-app.listen(process.env.PORT || 3000,(req,res)=>{
+app.listen(process.env.PORT || 3000,()=>{
     console.log('Server Running in Port 3000');
 })
 //API KEY
