@@ -19,7 +19,7 @@ app.post('/',(req,res)=>{
     const lastName = req.body.lName;
     const email= req.body.email;
 
-    // console.log(firstName ,lastName ,email);
+    console.log(firstName ,lastName ,email);
     const data ={
          members:[
             {
@@ -27,35 +27,45 @@ app.post('/',(req,res)=>{
                 status: 'subscribed',
                 merge_fields:{
                     FNAME:firstName,
-                    LNAME:lastName
+                    LNAME:lastName,
+                    
                 }
             }
          ],
     }
     var jsonData = JSON.stringify(data)
     console.log(firstName, lastName, email);
-    var jsonData = JSON.stringify(data)
     const url = 'https://us17.api.mailchimp.com/3.0/lists/7fb4dd04f9'
     
     const options ={
         method :"POST",
-        auth:"vikram:a56f9163195c26db96159c964dd0719e-us17"
-    }
-   const request= https.request(url,options,(response)=>{
-     if(response.statusCode===200){
-        res.sendFile(__dirname + "/success.html");
-         }  
-        else{
-      res.sendFile(__dirname + "/failure.html");
-          }
-            response.on('data',(data)=>{
-            console.log(JSON.parse(data));
-          })
-     })
+        auth:"vikram:dc730879a30cadfd10341f49e54901e0-us17"
+    } 
+  
+    const request = https.request(url, options, (response)=>{
+        response.on("data",function(data){
+            sub_data = JSON.parse(data)
+        if(response.statusCode !== 200){
+            res.sendFile(__dirname + "/failure.html")
+        }
+        else {
+            res.sendFile(__dirname + "/success.html")
+        }
 
+        response.on('data',(data)=>{
+            console.log(JSON.parse(data));
+        })
+       
+    })
+    
+    })
     request.write(jsonData)
     request.end()
+   
+})
 
+app.post('/success',(req,res)=>{
+    res.redirect('/')
 })
 
 app.post('/failure',(req,res)=>{
@@ -64,8 +74,3 @@ app.post('/failure',(req,res)=>{
 app.listen(process.env.PORT || 3000,()=>{
     console.log('Server Running in Port 3000');
 })
-//API KEY
-//d001c67986f6f6b7cf761ae42c57c6f6-us17
-
-//List ID
-//7fb4dd04f9
